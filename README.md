@@ -42,6 +42,6 @@ cd one-time-pad
 Run the script with Python:
 
 ```bash
-python one_time_pad.py
+python3 one_time_pad.py
 ```
 Follow the on-screen instructions to encode or decode a string.
