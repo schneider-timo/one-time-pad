@@ -25,7 +25,15 @@ def encode(code, clear):
        cipher_num = (clear_num + code_num)%26
        cipher_let = numbers_to_alphabet[cipher_num]
        cipher +=cipher_let
-            
+banner = """
+ _____                 _____ _                      ______         _ 
+|  _  |               |_   _(_)                     | ___ \       | |
+| | | |_ __   ___ ______| |  _ _ __ ___   ___ ______| |_/ /_ _  __| |
+| | | | '_ \ / _ \______| | | | '_ ` _ \ / _ \______|  __/ _` |/ _` |
+\ \_/ / | | |  __/      | | | | | | | | |  __/      | | | (_| | (_| |
+ \___/|_| |_|\___|      \_/ |_|_| |_| |_|\___|      \_|  \__,_|\__,_|
+                                                                     
+                                                                     """
 alphabet_to_numbers = {
     "A" : 0,
     "B" : 1,
@@ -83,6 +91,7 @@ numbers_to_alphabet = {
     24 : "Y",
     25 : "Z"
 }  
+print(banner)
 encode_decode = input("would you like to decode(1) or encode(2) a phrase?: ")
     
 if encode_decode == "1":
