@@ -1,5 +1,4 @@
-def decode(code, cipher):
-    global clear
+def decode(code, cipher, clear):
     for i in range(0,len(code)):
         code_num    = alphabet_to_numbers[code[i].upper()]
         cipher_num  = alphabet_to_numbers[cipher[i].upper()]
@@ -16,15 +15,17 @@ def decode(code, cipher):
                     clear_num = j-code_num
                     clear+=numbers_to_alphabet[clear_num]
                     break
+    return clear
 
-def encode(code, clear):
-    global cipher
+def encode(code, clear, cipher):
     for i in range(0,len(code)):
        code_num  = alphabet_to_numbers[code[i].upper()]
        clear_num = alphabet_to_numbers[clear[i].upper()]
        cipher_num = (clear_num + code_num)%26
        cipher_let = numbers_to_alphabet[cipher_num]
        cipher +=cipher_let
+    return cipher
+
 banner = """
  _____                 _____ _                      ______         _ 
 |  _  |               |_   _(_)                     | ___ \       | |
@@ -97,20 +98,22 @@ encode_decode = input("would you like to decode(1) or encode(2) a phrase?: ")
 if encode_decode == "1":
     code    = input("please Enter the codephrase: ").replace(" ", "")
     cipher  = input("please Enter ciphertext to decode: ").replace(" ", "")
+    clear   = ""
     if len(code)!=len(cipher):
         raise Exception("codephrase and ciphertext must have the same length!")
-    clear   = ""
-    decode(code,cipher)
+    clear   = decode(code,cipher, clear)
+    
 elif encode_decode == "2":
     code    = input("please Enter the codephrase: ").replace(" ", "")
     clear   = input("please enter the cleartext to encode: ").replace(" ", "")
+    cipher  = ""
     if len(code)!=len(clear):
         raise Exception("codephrase and ciphertext must have the same length!")
-    cipher = ""
-    encode(code, clear)
+    cipher = encode(code, clear, cipher)
+    
 else:
     raise Exception("please choose an option!")
-
+    
 print("the decoded text is:\t", clear)
 print("the codephrase is:\t", code)
 print("the encoded text is:\t", cipher)
