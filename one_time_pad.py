@@ -1,29 +1,36 @@
 def decode(code, cipher, clear):
     for i in range(0,len(code)):
-        code_num    = alphabet_to_numbers[code[i].upper()]
-        cipher_num  = alphabet_to_numbers[cipher[i].upper()]
-        clear_num   = 0
-        if cipher_num < code_num:
-            for j in range (code_num, code_num+26):
-             if j%26 == cipher_num:
-                clear_num = j-code_num
-                clear+=numbers_to_alphabet[clear_num]
-                break
-        else:   
-            for j in range (0,26):
-                if j%26 == cipher_num:
+        if code[i] != " ":
+            code_num    = alphabet_to_numbers[code[i].upper()]
+            cipher_num  = alphabet_to_numbers[cipher[i].upper()]
+            clear_num   = 0
+            if cipher_num < code_num:
+                for j in range (code_num, code_num+26):
+                 if j%26 == cipher_num:
                     clear_num = j-code_num
                     clear+=numbers_to_alphabet[clear_num]
                     break
+            else:   
+                for j in range (0,26):
+                    if j%26 == cipher_num:
+                        clear_num = j-code_num
+                        clear+=numbers_to_alphabet[clear_num]
+                        break
+        else:
+            clear+= " "
+
     return clear
 
 def encode(code, clear, cipher):
-    for i in range(0,len(code)):
-       code_num  = alphabet_to_numbers[code[i].upper()]
-       clear_num = alphabet_to_numbers[clear[i].upper()]
-       cipher_num = (clear_num + code_num)%26
-       cipher_let = numbers_to_alphabet[cipher_num]
-       cipher +=cipher_let
+    for i in range(0,len(clear)):
+        if clear[i] != " ":
+            code_num  = alphabet_to_numbers[code[i].upper()]
+            clear_num = alphabet_to_numbers[clear[i].upper()]
+            cipher_num = (clear_num + code_num)%26
+            cipher_let = numbers_to_alphabet[cipher_num]
+            cipher +=cipher_let
+        else:
+            cipher += " "
     return cipher
 
 banner = """
@@ -96,16 +103,16 @@ print(banner)
 encode_decode = input("would you like to decode(1) or encode(2) a phrase?: ")
     
 if encode_decode == "1":
-    code    = input("please Enter the codephrase: ").replace(" ", "")
-    cipher  = input("please Enter ciphertext to decode: ").replace(" ", "")
+    code    = input("please Enter the codephrase: ")
+    cipher  = input("please Enter ciphertext to decode: ")
     clear   = ""
     if len(code)!=len(cipher):
         raise Exception("codephrase and ciphertext must have the same length!")
     clear   = decode(code,cipher, clear)
     
 elif encode_decode == "2":
-    code    = input("please Enter the codephrase: ").replace(" ", "")
-    clear   = input("please enter the cleartext to encode: ").replace(" ", "")
+    code    = input("please Enter the codephrase: ")
+    clear   = input("please enter the cleartext to encode: ")
     cipher  = ""
     if len(code)!=len(clear):
         raise Exception("codephrase and ciphertext must have the same length!")
